@@ -10,6 +10,7 @@ import (
 	"github.com/thrasher-corp/gocryptotrader/config"
 	"github.com/thrasher-corp/gocryptotrader/core"
 	"github.com/thrasher-corp/gocryptotrader/database"
+	dbMysql "github.com/thrasher-corp/gocryptotrader/database/drivers/mysql"
 	dbPSQL "github.com/thrasher-corp/gocryptotrader/database/drivers/postgres"
 	dbsqlite3 "github.com/thrasher-corp/gocryptotrader/database/drivers/sqlite3"
 	"github.com/thrasher-corp/gocryptotrader/database/repository"
@@ -31,6 +32,8 @@ func openDBConnection(cfg *database.Config) (err error) {
 		dbConn, err = dbPSQL.Connect(cfg)
 	case database.DBSQLite, database.DBSQLite3:
 		dbConn, err = dbsqlite3.Connect(cfg.Database)
+	case database.DBMysql:
+		dbConn, err = dbMysql.Connect(cfg)
 	default:
 		return fmt.Errorf("unsupported database driver: %q", cfg.Driver)
 	}

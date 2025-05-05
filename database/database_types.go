@@ -37,7 +37,7 @@ var (
 	// ErrDatabaseSupportDisabled error to display when no database is provided
 	ErrDatabaseSupportDisabled = errors.New("database support is disabled")
 	// SupportedDrivers slice of supported database driver types
-	SupportedDrivers = []string{DBSQLite, DBSQLite3, DBPostgreSQL}
+	SupportedDrivers = []string{DBSQLite, DBSQLite3, DBPostgreSQL, DBMysql}
 	// ErrFailedToConnect for when a database fails to connect
 	ErrFailedToConnect = errors.New("database failed to connect")
 	// ErrDatabaseNotConnected for when a database is not connected
@@ -59,6 +59,8 @@ const (
 	DBSQLite3 = "sqlite3"
 	// DBPostgreSQL const string for PostgreSQL across code base
 	DBPostgreSQL = "postgres"
+	// DBMysql const string for Mysql across code base
+	DBMysql = "mysql"
 	// DBInvalidDriver const string for invalid driver
 	DBInvalidDriver = "invalid driver"
 )

@@ -12,6 +12,8 @@ func GetSQLDialect() string {
 		return database.DBSQLite3
 	case "psql", "postgres", "postgresql":
 		return database.DBPostgreSQL
+	case "mysql":
+		return database.DBMysql
 	}
 	return "invalid driver"
 }

@@ -103,6 +103,11 @@ func (m *DatabaseConnectionManager) Start(wg *sync.WaitGroup) (err error) {
 				m.cfg.Database,
 				m.cfg.Driver)
 			m.dbConn, err = dbsqlite3.Connect(m.cfg.Database)
+		case database.DBMysql:
+			log.Debugf(log.DatabaseMgr,
+				"Attempting to establish database connection to %s utilising %s driver\n",
+				m.cfg.Database,
+				m.cfg.Driver)
 		default:
 			return database.ErrNoDatabaseProvided
 		}

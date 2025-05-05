@@ -58,6 +58,27 @@ func (i *Instance) SetPostgresConnection(con *sql.DB) error {
 	return nil
 }
 
+// SetMySQLConnection safely sets the global database instance's connection
+// to use Mysql
+func (i *Instance) SetMySQLConnection(con *sql.DB) error {
+	if i == nil {
+		return ErrNilInstance
+	}
+	if con == nil {
+		return ErrNilInstance
+	}
+	if err := con.Ping(); err != nil {
+		return fmt.Errorf("%w %s", errFailedPing, err)
+	}
+	i.m.Lock()
+	defer i.m.Unlock()
+	i.SQL = con
+	i.SQL.SetMaxOpenConns(2)
+	i.SQL.SetMaxIdleConns(1)
+	i.SQL.SetConnMaxLifetime(time.Hour)
+	return nil
+}
+
 // SetConnected safely sets the global database instance's connected
 // status
 func (i *Instance) SetConnected(v bool) {
